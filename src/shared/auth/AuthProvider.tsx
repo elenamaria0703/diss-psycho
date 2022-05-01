@@ -69,17 +69,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     ...state,
                     isAuthenticating: true,
                 });
-                const { email, password } = state;
-                const { token, role, name } = await loginApi(email, password);
+                // const { email, password } = state;
+                // const { token, role, name } = await loginApi(email, password);
                 if (canceled) {
                     return;
                 }
 
                 setState({
                     ...state,
-                    token,
-                    role,
-                    name,
+                    token: 'this_is_a_token',
+                    role: 'student',
+                    name: 'Test Student',
                     pendingAuthentication: false,
                     isAuthenticated: true,
                     isAuthenticating: false,

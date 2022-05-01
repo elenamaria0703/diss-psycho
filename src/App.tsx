@@ -1,11 +1,13 @@
-import React from 'react';
-import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
+import React, {useContext} from 'react';
+import {Route, BrowserRouter as Router, Routes, Navigate} from 'react-router-dom';
 import './App.css';
 import {PrivateRoute} from "./shared/auth/PrivateRoute";
 import Login from "./shared/auth/Login";
 import StudentMainPage from "./students/StudentMainPage";
 import 'bootstrap/dist/css/bootstrap.css';
 import {AuthProvider} from "./shared/auth/AuthProvider";
+import CoordinatorMainPage from "./coordinators/CoordinatorMainPage";
+import AdminMainPage from "./admins/AdminMainPage";
 
 function App() {
   return (
@@ -13,11 +15,20 @@ function App() {
      <AuthProvider>
          <Router>
               <Routes>
-                <Route path="/" element={<Login />} />
-                <Route
+                  <Route path="/" element={ <Navigate to={"login"} />} />
+                  <Route
                     path="student"
                     element={<PrivateRoute roles={['student']} component={StudentMainPage} />}
-                />
+                  />
+                  <Route
+                      path="coordinator"
+                      element={<PrivateRoute roles={['coordinator']} component={CoordinatorMainPage} />}
+                  />
+                  <Route
+                      path="admin"
+                      element={<PrivateRoute roles={['admin']} component={AdminMainPage} />}
+                  />
+                  <Route path="login" element={<Login/>} />
               </Routes>
           </Router>
      </AuthProvider>
