@@ -61,6 +61,16 @@
 .student-container .title small{
   border-bottom: 2px solid #234379;
 }
+.btn.btn-primary{
+  background: #234379;
+  border-color: #234379;
+}
+.btn.btn-primary:hover, .btn.btn-primary:focus{
+  background: #1e3967;
+}
+.filters-form{
+  text-align: left;
+}
 
 @keyframes App-logo-spin {
   from {
