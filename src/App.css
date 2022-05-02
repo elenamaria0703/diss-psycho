@@ -31,6 +31,37 @@
   color: #61dafb;
 }
 
+.student-list-item{
+  border: none !important;
+  text-align: left;
+  font-size: smaller;
+}
+
+.student-list-item .card-title.h5{
+  font-weight: bolder;
+  font-size: medium;
+}
+
+.profile-image{
+  margin: auto 10px;
+}
+
+.request-btn{
+  flex: 1;
+  margin: auto;
+  text-align: right;
+}
+.request-btn button{
+  background: none;
+}
+.student-container .title{
+  padding: 0;
+  text-align: left;
+}
+.student-container .title small{
+  border-bottom: 2px solid #234379;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
