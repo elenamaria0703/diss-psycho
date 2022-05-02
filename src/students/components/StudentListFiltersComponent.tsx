@@ -1,7 +1,7 @@
 import React, {FormEvent, useState} from "react";
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {filterChange} from "../slices/studentsSlice";
+import {filterChange} from "../slices/studentsSideCoordinatorSlice";
 import {useDispatch} from "react-redux";
 
 const StudentListFiltersComponent: React.FC =()=> {

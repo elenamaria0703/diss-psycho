@@ -3,21 +3,20 @@ import {Card, Col, Container, Row} from "react-bootstrap";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import StudentListItemComponent from "./StudentListItemComponent";
 import StudentListFiltersComponent from "./StudentListFiltersComponent";
-import {Coordinator} from "../slices/studentsSlice";
+import {Coordinator} from "../slices/studentsSideCoordinatorSlice";
 import {useDispatch} from "react-redux";
 
 const StudentListViewComponent: React.FC =()=> {
-    const coordinators = useAppSelector((state) => state.studentsSlice.coordinators)
-    const filterValue = useAppSelector((state) => state.studentsSlice.selectedDomain)
+    const {coordinators, selectedDomain} = useAppSelector((state) => state.studentsSlice)
 
     const columnsPerRow = 2
 
-    const filterCoordinators = (coordinators: Array<Coordinator>, filterValue: string ) => {
-        return coordinators.filter((coordinator) => coordinator.domains.includes(filterValue))
+    const filterCoordinators = (coordinators: Array<Coordinator>, selectedDomain: string ) => {
+        return coordinators.filter((coordinator) => coordinator.domains.includes(selectedDomain))
     }
 
     const getColumnsForRow =()=>{
-       const coordinatorsToDisplay = filterValue === '' ? coordinators : filterCoordinators(coordinators, filterValue)
+       const coordinatorsToDisplay = selectedDomain === '' ? coordinators : filterCoordinators(coordinators, selectedDomain)
        return coordinatorsToDisplay.map((coordinator, i) => {
             return (
                 <Col key={i}>

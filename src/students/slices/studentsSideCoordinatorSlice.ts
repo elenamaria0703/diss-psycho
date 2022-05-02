@@ -32,7 +32,7 @@ const initialState: studentsSliceState = {
     selectedDomain: ''
 }
 
-const studentsSlice = createSlice({
+const studentsSideCoordinatorSlice = createSlice({
     name: 'studentsSlice',
     initialState,
     reducers: {
@@ -42,10 +42,10 @@ const studentsSlice = createSlice({
     },
 });
 
-export default studentsSlice.reducer
+export default studentsSideCoordinatorSlice.reducer
 
 // Actions
-export const { filterChanged } = studentsSlice.actions
+export const { filterChanged } = studentsSideCoordinatorSlice.actions
 
 export const filterChange = (filter : string) => (dispatch: AppDispatch) => {
    dispatch(filterChanged(filter));

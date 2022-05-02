@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Card, Image} from "react-bootstrap";
-import {Coordinator} from "../slices/studentsSlice";
+import {Coordinator} from "../slices/studentsSideCoordinatorSlice";
 import {Question} from "react-bootstrap-icons";
 
 
