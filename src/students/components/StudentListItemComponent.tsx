@@ -2,9 +2,12 @@ import React from "react";
 import {Button, Card, Image} from "react-bootstrap";
 import {Coordinator} from "../slices/studentsSideCoordinatorSlice";
 import {Question} from "react-bootstrap-icons";
+import {useNavigate} from "react-router-dom";
 
 
-const StudentListItemComponent: React.FC<Coordinator> =( {name,email,domains})=> {
+const StudentListItemComponent: React.FC<Coordinator> =( { id, name,email,domains})=> {
+    const navigate = useNavigate()
+
     return (
         <Card className={'mb-2 student-list-item'}>
             <Card.Body className={'d-flex flex-wrap'}>
@@ -17,7 +20,7 @@ const StudentListItemComponent: React.FC<Coordinator> =( {name,email,domains})=>
                     <Card.Text>{domains.join(', ')}</Card.Text>
                 </div>
                 <div className={'request-btn'}>
-                    <Button variant={'light'}><Question height={50} width={50}/></Button>
+                    <Button onClick={() => { navigate(`new_coordinator_request/${id}`) }} variant={'light'}><Question height={50} width={50}/></Button>
                 </div>
             </Card.Body>
         </Card>

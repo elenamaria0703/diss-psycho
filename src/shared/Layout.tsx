@@ -17,7 +17,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, links}) => {
         <>
             <Navbar collapseOnSelect expand="lg" className={'shadow-sm'}>
                 <Container>
-                    <Navbar.Brand href={'/'}><Image height={40} src={'ubb_logo.png'}/></Navbar.Brand>
+                    <Navbar.Brand href={'/'}><Image height={40} src={'/ubb_logo.png'}/></Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse>
                         <Nav className="me-auto">

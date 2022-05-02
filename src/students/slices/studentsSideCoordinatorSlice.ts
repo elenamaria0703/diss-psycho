@@ -4,6 +4,7 @@ import {useAppSelector} from "../../hooks";
 
 // Slice
 export interface Coordinator {
+    id: string,
     name: string,
     email: string,
     domains: Array<string>
@@ -15,16 +16,19 @@ interface studentsSliceState {
 
 const initialState: studentsSliceState = {
     coordinators:  [{
+        id: '1',
         name: "Test Coordinator",
         email: "test@coordinator.com",
         domains: ['d1','d2','d3']
     },
         {
+            id: '2',
             name: "Test Coordinator",
             email: "test@coordinator.com",
             domains: ['d1','d2']
         },
         {
+            id: '3',
             name: "Test Coordinator",
             email: "test@coordinator.com",
             domains: ['d1','d3']

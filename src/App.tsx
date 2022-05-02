@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {AuthProvider} from "./shared/auth/AuthProvider";
 import CoordinatorMainPage from "./coordinators/CoordinatorMainPage";
 import AdminMainPage from "./admins/AdminMainPage";
+import StudentCoordinatorRequestPage from "./students/StudentCoordinatorRequestPage";
 
 function App() {
   return (
@@ -20,6 +21,11 @@ function App() {
                     path="student"
                     element={<PrivateRoute roles={['student']} component={StudentMainPage} />}
                   />
+                  <Route
+                      path="student/new_coordinator_request/:id"
+                      element={<PrivateRoute roles={['student']} component={StudentCoordinatorRequestPage} />}
+                  />
+
                   <Route
                       path="coordinator"
                       element={<PrivateRoute roles={['coordinator']} component={CoordinatorMainPage} />}

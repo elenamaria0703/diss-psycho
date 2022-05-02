@@ -20,7 +20,7 @@ const StudentListViewComponent: React.FC =()=> {
        return coordinatorsToDisplay.map((coordinator, i) => {
             return (
                 <Col key={i}>
-                    <StudentListItemComponent name={coordinator.name} email={coordinator.email} domains={coordinator.domains}/>
+                    <StudentListItemComponent id={coordinator.id} name={coordinator.name} email={coordinator.email} domains={coordinator.domains}/>
                 </Col>
             )
         })
