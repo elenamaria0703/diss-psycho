@@ -7,7 +7,7 @@ import {Coordinator} from "../slices/studentsSideCoordinatorSlice";
 import {useDispatch} from "react-redux";
 
 const StudentListViewComponent: React.FC =()=> {
-    const {coordinators, selectedDomain} = useAppSelector((state) => state.studentsSlice)
+    const {coordinators, selectedDomain, requests} = useAppSelector((state) => state.studentsSlice)
 
     const columnsPerRow = 2
 
@@ -20,7 +20,7 @@ const StudentListViewComponent: React.FC =()=> {
        return coordinatorsToDisplay.map((coordinator, i) => {
             return (
                 <Col key={i}>
-                    <StudentListItemComponent id={coordinator.id} name={coordinator.name} email={coordinator.email} domains={coordinator.domains}/>
+                    <StudentListItemComponent id={coordinator.id} name={coordinator.name} email={coordinator.email} domains={coordinator.domains} maxRequestsSent= {requests.length > 3} requestSent={requests.some(request => request.coord_id === coordinator.id)}/>
                 </Col>
             )
         })

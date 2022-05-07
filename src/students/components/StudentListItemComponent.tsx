@@ -1,11 +1,15 @@
 import React from "react";
-import {Button, Card, Image} from "react-bootstrap";
+import {Button, Card, Image, OverlayTrigger, Tooltip} from "react-bootstrap";
 import {Coordinator} from "../slices/studentsSideCoordinatorSlice";
-import {Question} from "react-bootstrap-icons";
+import {Clock, Question} from "react-bootstrap-icons";
 import {useNavigate} from "react-router-dom";
 
+interface CoordonatorCardProps extends Coordinator{
+    maxRequestsSent: boolean,
+    requestSent: boolean
+}
 
-const StudentListItemComponent: React.FC<Coordinator> =( { id, name,email,domains})=> {
+const StudentListItemComponent: React.FC<CoordonatorCardProps> =( { id, name,email,domains, maxRequestsSent, requestSent})=> {
     const navigate = useNavigate()
 
     return (
@@ -20,7 +24,20 @@ const StudentListItemComponent: React.FC<Coordinator> =( { id, name,email,domain
                     <Card.Text>{domains.join(', ')}</Card.Text>
                 </div>
                 <div className={'request-btn'}>
-                    <Button onClick={() => { navigate(`new_coordinator_request/${id}`) }} variant={'light'}><Question height={50} width={50}/></Button>
+                    {requestSent ?
+                        <OverlayTrigger overlay={<Tooltip>Confirmare în așteptare</Tooltip>}>
+                            <span><Button disabled variant={'light'}><Clock height={30} width={50}/></Button></span>
+                        </OverlayTrigger>
+                        :
+                        maxRequestsSent ?
+                                <OverlayTrigger overlay={<Tooltip>S-a atins numărul maxim de cereri de coordonare</Tooltip>}>
+                                    <span><Button disabled variant={'light'}><Question height={50} width={50}/></Button></span>
+                                </OverlayTrigger>
+                            :
+                                <Button onClick={() => {
+                                    navigate(`new_coordinator_request/${id}`)
+                                }} variant={'light'}><Question height={50} width={50}/></Button>
+                    }
                 </div>
             </Card.Body>
         </Card>
