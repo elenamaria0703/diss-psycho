@@ -30,7 +30,7 @@ const StudentCoordinatorRequestFormComponent: React.FC =()=> {
                 <Col>
                     <h2 className={'title'}><small className={'px-2'}>Cerere de Coordonare</small></h2>
                 </Col>
-                <Col><Button className={'float-end'} onClick={() => navigate('/student')}>Înapoi</Button></Col>
+                <Col><Button className={'float-end'} onClick={() => navigate(-1)}>Înapoi</Button></Col>
             </Row>
             <Form noValidate validated={validated} className={'shadow p-3'} onSubmit={handleSubmit}>
                 <Row className={'my-3'}>

@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks";
 import {filterChange} from "../slices/studentsSideCoordinatorSlice";
 import {useDispatch} from "react-redux";
 
-const StudentListFiltersComponent: React.FC =()=> {
+const StudentCoordinatorListFiltersComponent: React.FC =()=> {
     const domenii = useAppSelector((state) =>
         state.studentsSlice.coordinators.map((coordinator) => coordinator.domains)
                                         .flat()
@@ -43,4 +43,4 @@ const StudentListFiltersComponent: React.FC =()=> {
         </Col>
     )
 }
-export default StudentListFiltersComponent
+export default StudentCoordinatorListFiltersComponent

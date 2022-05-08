@@ -9,7 +9,7 @@ interface CoordonatorCardProps extends Coordinator{
     requestSent: boolean
 }
 
-const StudentListItemComponent: React.FC<CoordonatorCardProps> =( { id, name,email,domains, maxRequestsSent, requestSent})=> {
+const StudentCoordinatorListItemComponent: React.FC<CoordonatorCardProps> =({ id, name,email,domains, maxRequestsSent, requestSent})=> {
     const navigate = useNavigate()
 
     return (
@@ -43,4 +43,4 @@ const StudentListItemComponent: React.FC<CoordonatorCardProps> =( { id, name,ema
         </Card>
     )
 }
-export default StudentListItemComponent
+export default StudentCoordinatorListItemComponent
