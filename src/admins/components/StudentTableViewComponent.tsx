@@ -1,52 +1,23 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import TableComponent from "./TableComponent";
-
-export interface Student {
-    first_name: string,
-    last_name: string,
-    academic_code: string,
-    specialization: string,
-    graduation: string,
-    form_of_education: string,
-    email: string
-};
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { filterChange } from "../slices/adminStudentsSlice";
+import StudentTableComponent from "./StudentTableComponent";
 
 const StudentTableViewComponent: React.FC = () =>{
     const handleSubmit = (event: FormEvent) => {
-    }
-
-    var students: Array<Student> = [
-        {
-            first_name: 'Andra Gabriela', 
-            last_name: 'Pufu', 
-            academic_code: 'ewdbvchi', 
-            specialization: 'Info Română', 
-            graduation: '2018-2021',
-            form_of_education: 'Zi',
-            email: 'abc2@stud.ubbcluj.ro'
-        },
-        {
-            first_name: 'Ioana Claudia', 
-            last_name: 'Rotaru', 
-            academic_code: 'vsjvngrjz', 
-            specialization: 'Info Română', 
-            graduation: '2018-2021',
-            form_of_education: 'ID',
-            email: 'abc1@stud.ubbcluj.ro'
+        event.preventDefault();
+        if(filter !== undefined || filter !== ''){
+            dispatch(filterChange(filter, studentsInitial.filter((s, i) => s.last_name.includes(filter) || s.first_name.includes(filter))))
         }
-    ];
-
-    const fields = {
-        last_name: 'Nume',
-        first_name: 'Prenume',
-        form_of_education: 'Formă de învățământ',
-        graduation: 'Promoție',
-        specialization: 'Specializare',
-        email: 'E-mail',
-        academic_code: 'Cod academic'
+        else{
+            dispatch(filterChange('', []));
+        }
     }
+    var studentsInitial = useAppSelector((state) => state.adminStudentsSlice.studentsInitial);
+    var [filter, setFilter] = useState(useAppSelector((state => state.adminStudentsSlice.searchedText)));
+    const dispatch = useAppDispatch();
 
     return (
         <Container className={'mt-4 student-container'}>
@@ -59,7 +30,9 @@ const StudentTableViewComponent: React.FC = () =>{
                         <Form.Group>
                             <Row>
                                 <Col lg={3}>
-                                    <Form.Control type="text" placeholder="Caută student" />
+                                    <Form.Control 
+                                    placeholder="Caută student"
+                                    onChange={e => filter = e.target.value} />
                                 </Col>
                                 <Col>
                                     <Button variant="primary" type="submit">Caută</Button>
@@ -69,7 +42,7 @@ const StudentTableViewComponent: React.FC = () =>{
                     </Form>
                 </Col>
             </Row>
-            <TableComponent type1={'student'} type2={'studenți'} fields={fields} items={students}/>
+            <StudentTableComponent/>
         </Container>
     )
 };

@@ -1,0 +1,102 @@
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {AppDispatch, RootState} from "../../store";
+import {useAppSelector} from "../../hooks";
+
+export interface Student {
+    first_name: string,
+    last_name: string,
+    academic_code: string,
+    specialization: string,
+    graduation: string,
+    form_of_education: string,
+    email: string
+};
+
+interface adminStudentsSliceState {
+    students: Array<Student>,
+    studentsInitial: Array<Student>,
+    searchedText: string,
+    fields: any
+}
+
+const initialState: adminStudentsSliceState = {
+    students: [
+        {
+            first_name: 'Prenume1', 
+            last_name: 'Nume1', 
+            academic_code: 'ewdbvchi', 
+            specialization: 'Info Română', 
+            graduation: '2018-2021',
+            form_of_education: 'Zi',
+            email: 'abc2@stud.ubbcluj.ro'
+        },
+        {
+            first_name: 'Prenume2', 
+            last_name: 'Nume2', 
+            academic_code: 'vsjvngrjz', 
+            specialization: 'Info Română', 
+            graduation: '2018-2021',
+            form_of_education: 'ID',
+            email: 'abc1@stud.ubbcluj.ro'
+        }
+    ],
+    studentsInitial: [
+        {
+            first_name: 'Prenume1', 
+            last_name: 'Nume1', 
+            academic_code: 'ewdbvchi', 
+            specialization: 'Info Română', 
+            graduation: '2018-2021',
+            form_of_education: 'Zi',
+            email: 'abc2@stud.ubbcluj.ro'
+        },
+        {
+            first_name: 'Prenume2', 
+            last_name: 'Nume2', 
+            academic_code: 'vsjvngrjz', 
+            specialization: 'Info Română', 
+            graduation: '2018-2021',
+            form_of_education: 'ID',
+            email: 'abc1@stud.ubbcluj.ro'
+        }
+    ],
+    searchedText: '',
+    fields: {
+        last_name: 'Nume',
+        first_name: 'Prenume',
+        form_of_education: 'Formă de învățământ',
+        graduation: 'Promoție',
+        specialization: 'Specializare',
+        email: 'E-mail',
+        academic_code: 'Cod academic'
+    }
+}
+
+const adminStudentsSlice = createSlice({
+    name: 'adminStudentsSlice',
+    initialState,
+    reducers: {
+        filterChanged: (state, action: PayloadAction<string>) => {
+            state.searchedText = action.payload
+        },
+        filterChanged2: (state, action: PayloadAction<Array<Student>>) => {
+            if(state.searchedText === '') {
+                state.students = initialState.students;
+                state.studentsInitial = initialState.studentsInitial;
+            }
+            else {
+                state.students = action.payload;
+            }
+        }
+    },
+});
+
+export default adminStudentsSlice.reducer
+
+// Actions
+export const { filterChanged, filterChanged2 } = adminStudentsSlice.actions
+
+export const filterChange = (filter : string, students: Array<Student>) => (dispatch: AppDispatch) => {
+   dispatch(filterChanged(filter));
+   dispatch(filterChanged2(students));
+}

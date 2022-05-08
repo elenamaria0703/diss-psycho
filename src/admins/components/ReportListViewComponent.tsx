@@ -1,20 +1,12 @@
 import React from "react";
 
 import {Col, Container, Row} from "react-bootstrap";
+import { useAppSelector } from "../../hooks";
 import ReportComponent from "./ReportComponent";
-
-export interface Report {
-    type: string,
-    description: string
-};
 
 const ReportListViewComponent: React.FC = () =>{
     const columnsPerRow = 2;
-
-    var reports: Array<Report> = [
-        {type: 'students_teachers', description: 'Raport privind studenții cu sau fără profesor asignat'},
-        {type: 'students_previous', description: 'Raport privind lucrările studenților din anul curent'}
-    ];
+    var reports = useAppSelector((state) => state.adminReportsSlice.reports);
 
     const getColumnsForRow = () => {
         return reports.map((report, i) => {

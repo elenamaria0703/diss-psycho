@@ -1,15 +1,12 @@
 import React from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import {PencilSquare, Archive} from "react-bootstrap-icons";
+import { useAppSelector } from "../../hooks";
 
-export interface TableProps {
-    type1: string,
-    type2: string,
-    fields: any,
-    items: Array<any>
-}
+const TeacherTableComponent: React.FC = () => {
+    var teachers = useAppSelector((state) => state.adminTeachersSlice.teachers);
+    const fields = useAppSelector((state) => state.adminTeachersSlice.fields);
 
-const TableComponent: React.FC<TableProps> = ({type1, type2, fields, items}) => {
     return (
         <Container>
             <Row>
@@ -26,13 +23,12 @@ const TableComponent: React.FC<TableProps> = ({type1, type2, fields, items}) => 
                         </thead>
                         <tbody>
                             {
-                                items.map((item, i) => (
+                                teachers.map((teacher, i) => (
                                     <tr>
-                                        {
-                                            Object.entries(fields).map(([key, _]) => (
-                                                <td>{!item.hasOwnProperty(key) ? '' : item[key]}</td>
-                                            ))
-                                        }
+                                        <td>{teacher.last_name}</td>
+                                        <td>{teacher.first_name}</td>
+                                        <td>{teacher.specialization}</td>
+                                        <td>{teacher.email}</td>
                                         <td>
                                             <Row>
                                                 <Col><PencilSquare/></Col>
@@ -47,11 +43,11 @@ const TableComponent: React.FC<TableProps> = ({type1, type2, fields, items}) => 
                 </Col>
             </Row>
             <Row>
-                <Col><Button type={"submit"}>Adaugă {type1}</Button></Col>
-                <Col><Button type={"submit"}>Încarcă XLS {type2}</Button></Col>
+                <Col><Button type={"submit"}>Adaugă profesor</Button></Col>
+                <Col><Button type={"submit"}>Încarcă XLS profesori</Button></Col>
             </Row>
         </Container>
     )
 };
 
-export default TableComponent;
+export default TeacherTableComponent;

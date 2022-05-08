@@ -1,39 +1,23 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import TableComponent from "./TableComponent";
-
-export interface Teacher {
-    first_name: string,
-    last_name: string,
-    specialization: string,
-    email: string
-};
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { filterChange } from "../slices/adminTeachersSlice";
+import TeacherTableComponent from "./TeacherTableComponent";
 
 const TeacherTableViewComponent: React.FC = () =>{
     const handleSubmit = (event: FormEvent) => {
-    }
-    var teachers: Array<Teacher> = [
-        {
-            first_name: 'Laura Silvia', 
-            last_name: 'Dioșan', 
-            specialization: 'Inteligență artificială',
-            email: 'abc3@stud.ubbcluj.ro'
-        },
-        {
-            first_name: 'Rareș', 
-            last_name: 'Boian', 
-            specialization: 'Sisteme de operare',
-            email: 'abc4@stud.ubbcluj.ro'
+        event.preventDefault();
+        if(filter !== undefined || filter !== ''){
+            dispatch(filterChange(filter, teachersInitial.filter((t, i) => t.last_name.includes(filter) || t.first_name.includes(filter))))
         }
-    ];
-
-    const fields = {
-        last_name: 'Nume',
-        first_name: 'Prenume',
-        specialization: 'Specializare',
-        email: 'E-mail'
+        else{
+            dispatch(filterChange('', []));
+        }
     }
+    var teachersInitial = useAppSelector((state) => state.adminTeachersSlice.teachersInitial)
+    var [filter, setFilter] = useState(useAppSelector((state => state.adminTeachersSlice.searchedText)))
+    const dispatch = useAppDispatch();
 
     return (
         <Container className={'mt-4 student-container'}>
@@ -46,7 +30,9 @@ const TeacherTableViewComponent: React.FC = () =>{
                         <Form.Group>
                             <Row>
                                 <Col lg={3}>
-                                    <Form.Control type="text" placeholder="Caută profesor" />
+                                    <Form.Control 
+                                        placeholder="Caută profesor"
+                                        onChange={e => filter = e.target.value} />
                                 </Col>
                                 <Col>
                                     <Button variant="primary" type="submit">Caută</Button>
@@ -56,7 +42,7 @@ const TeacherTableViewComponent: React.FC = () =>{
                     </Form>
                 </Col>
             </Row>
-            <TableComponent type1={'profesor'} type2={'profesori'} fields={fields} items={teachers}/>
+            <TeacherTableComponent/>
         </Container>
     )
 };
