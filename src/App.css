@@ -45,7 +45,9 @@
 .profile-image{
   margin: auto 10px;
 }
-
+.profile{
+  max-width: 60%;
+}
 .request-btn{
   flex: 1;
   margin: auto;

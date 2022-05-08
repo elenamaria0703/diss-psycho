@@ -16,13 +16,13 @@ interface studentsSliceState {
 
 const initialState: studentsSliceState = {
     assignments: [
-        {title: "Test", description: "Desc", grade: null, feedback: null, gradedAt: null},
-        {title: "Test1", description: "Desc1", grade: 9, feedback: "Observatii aici", gradedAt: "12.04.2022"},
-        {title: "Test1", description: "Desc1", grade: null, feedback: null, gradedAt: null},
-        {title: "Test1", description: "Desc1", grade: null, feedback: null, gradedAt: null},
-        {title: "Test1", description: "Desc1", grade: null, feedback: null, gradedAt: null}
+        {title: "Tema 1", description: "Documentarea conceptelor teoretice din lucrarea de licență în baza de date/ surse științifice, academice ", grade: 9.2, feedback: "Te rog să detaliez mai mult în secțiunea 2.1", gradedAt: "12.04.2022"},
+        {title: "Tema 2", description: "Autonomie în identificarea și consultarea surselor științifice relevante pentru tema de licență ", grade: null, feedback: null, gradedAt: null},
+        {title: "Tema 3", description: "Răspunde la solicitările coordonatorului, în termenele stabilite de acesta. (ex. Trimite text elaborat pentru manuscrisul tezei de licență atunci când i se solicită.) ", grade: null, feedback: null, gradedAt: null},
+        {title: "Tema 4", description: "Integrează feedbackul coordonatorului, în termenele stabilite de acesta. ", grade: null, feedback: null, gradedAt: null},
+        {title: "Tema 5", description: "Participă la întâlnirile stabilite de coordonator, atunci când este cazul.  ", grade: null, feedback: null, gradedAt: null}
     ],
-    examGrade: 9.5,
+    examGrade: null,
     reExamGrade: null
 }
 

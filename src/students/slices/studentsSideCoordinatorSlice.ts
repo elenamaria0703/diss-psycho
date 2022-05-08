@@ -24,21 +24,21 @@ interface studentsSliceState {
 const initialState: studentsSliceState = {
     coordinators:  [{
         id: '1',
-        name: "Test Coordinator",
-        email: "test@coordinator.com",
-        domains: ['d1','d2','d3']
+        name: "Oana Benga",
+        email: "oanabenga@psychology.ro",
+        domains: ['Mecanisme intrinseci și extrinseci','Variabilitate interindividuală și factori predictivi ai psihopatologiei dezvoltări','Corelate neuronale ale dezvoltării atipice']
     },
         {
             id: '2',
-            name: "Test Coordinator",
-            email: "test@coordinator.com",
-            domains: ['d1','d2']
+            name: "Adriana Băban",
+            email: "adrianababan@psychology.ro",
+            domains: ['Comportamente de risc','Calitatea îngrijirii medicale și satisfacția pacientului','Educaţie timpurie']
         },
         {
             id: '3',
-            name: "Test Coordinator",
-            email: "test@coordinator.com",
-            domains: ['d1','d3']
+            name: "Dorothea (Thea) A. Ionescu",
+            email: "theaionescu@psychology.ro",
+            domains: ['Formarea conceptelor','Educaţie timpurie', 'Mecanisme intrinseci și extrinseci']
         }],
     selectedDomain: '',
     requests: []

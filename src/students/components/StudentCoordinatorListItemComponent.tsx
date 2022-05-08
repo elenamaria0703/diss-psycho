@@ -21,7 +21,7 @@ const StudentCoordinatorListItemComponent: React.FC<CoordonatorCardProps> =({ id
                 <div className={'profile'}>
                     <Card.Title>{name}</Card.Title>
                     <Card.Text className={'mb-2'}>{email}</Card.Text>
-                    <Card.Text>{domains.join(', ')}</Card.Text>
+                    <Card.Text>{domains.map(domain => <span>{domain}<br/></span>)}</Card.Text>
                 </div>
                 <div className={'request-btn'}>
                     {requestSent ?
