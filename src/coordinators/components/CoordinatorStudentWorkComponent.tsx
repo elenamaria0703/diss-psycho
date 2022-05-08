@@ -12,7 +12,7 @@ const CoordinatorStudentWorkComponent: React.FC<StudentWork> =({id, description,
       <Card.Header>Tema {id}</Card.Header>
       <Card.Body>
         <Card.Text>{description}</Card.Text>
-        {feedback ? <Card.Text> {feedback} </Card.Text> :
+        {feedback ? <Card.Text><hr/><b>Feedback</b><br/>{feedback} </Card.Text> :
           <Form className={'shadow p-3'} onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
               <Form.Label>Feedback</Form.Label>

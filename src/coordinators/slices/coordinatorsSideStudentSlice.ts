@@ -37,6 +37,12 @@ const initialState: coordinatorsSliceState = {
                 description: 'Tema mea',
                 feedback: '',
                 submission_date: new Date()
+            },
+            {
+                id: '1',
+                description: 'Tema mea',
+                feedback: 'Foarte buna treaba!',
+                submission_date: new Date()
             }
         ]
     },
