@@ -1,6 +1,7 @@
 import React from "react";
 import {Container, Image, Nav, Navbar} from "react-bootstrap";
 import {BoxArrowRight} from "react-bootstrap-icons";
+import {Storage} from "@capacitor/storage";
 
 export interface NavLinkProp{
     title: string,
@@ -25,7 +26,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, links}) => {
                         </Nav>
                         <Nav>
                             <Navbar.Text className={'d-md-none d-lg-block'}>{title}</Navbar.Text>
-                            <Nav.Link><BoxArrowRight/></Nav.Link>
+                            <Nav.Link><BoxArrowRight onClick={() => {Storage.clear(); window.location.reload();}}/></Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
