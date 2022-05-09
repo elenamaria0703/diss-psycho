@@ -9,13 +9,13 @@ export interface PrivateRouteProps {
 }
 
 export const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: RouteComponent, roles }) => {
-    // const { isAuthenticated, role } = useContext<AuthState>(AuthContext);
-    // const userHasRequiredRole = (isAuthenticated && roles.includes(role))
+    const { isAuthenticated, role } = useContext<AuthState>(AuthContext);
+    const userHasRequiredRole = (isAuthenticated && roles.includes(role))
 
-    // if (isAuthenticated && userHasRequiredRole) {
-    //     return <RouteComponent />
-    // }
+    if (isAuthenticated && userHasRequiredRole) {
+         return <RouteComponent />
+     }
 
-    // return <Navigate to="/" />
-    return <RouteComponent />
+     return <Navigate to="/" />
+    // return <RouteComponent />
 }
