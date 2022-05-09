@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { login as loginApi } from './AuthApi';
+import {Storage} from '@capacitor/storage'
+import jwt from 'jwt-decode'
 
 type LoginFn = (email?: string, password?: string) => void;
 
@@ -62,6 +64,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         async function authenticate() {
             if (!pendingAuthentication) {
+                const retToken = await Storage.get({key: "token"});
+                const retRole = await Storage.get({key: "role"});
+                const retName = await Storage.get({key: "name"});
+                if(retToken.value != null  && retRole.value != null && retName.value != null){
+                    setState({
+                        ...state,
+                        token: retToken.value,
+                        name: retName.value,
+                        role: retRole.value,
+                        isAuthenticated: true,
+                    });
+                }
                 return;
             }
             try {
@@ -85,6 +99,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     isAuthenticated: true,
                     isAuthenticating: false,
                 });
+                await Storage.set({key: "token", value: token})
+                await Storage.set({key: "name", value: name})
+                await Storage.set({key: "role", value: role})
             } catch (error) {
                 if (canceled) {
                     return;

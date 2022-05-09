@@ -28,7 +28,6 @@ function App() {
                       path="student/new_coordinator_request/:id"
                       element={<PrivateRoute roles={['student']} component={StudentCoordinatorRequestPage} />}
                   />
-
                   <Route
                       path="coordinator"
                       element={<PrivateRoute roles={['coordinator']} component={CoordinatorMainPage} />}
@@ -38,7 +37,6 @@ function App() {
                         element={<Navigate replace to="/admin/students" />}
                   />
                   <Route
-                    
                       path="admin/students"
                       element={<PrivateRoute roles={['admin']} component={AdminManageStudentsPage} />}
                   />
