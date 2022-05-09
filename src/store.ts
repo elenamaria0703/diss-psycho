@@ -15,7 +15,8 @@ const reducer = combineReducers({
     adminReportsSlice,
     studentAssignmentsSlice,
     coordinatorsSlice
-
+    })
+    
 const store = configureStore({
     reducer,
 })
