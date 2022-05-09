@@ -67,7 +67,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 const retToken = await Storage.get({key: "token"});
                 const retRole = await Storage.get({key: "role"});
                 const retName = await Storage.get({key: "name"});
-                if(retToken.value && retRole.value && retName.value){
+                if(retToken.value != null  && retRole.value != null && retName.value != null){
                     setState({
                         ...state,
                         token: retToken.value,

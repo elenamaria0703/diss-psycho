@@ -11,9 +11,9 @@ const AdminManageStudentsPage: React.FC = () =>{
         <Layout 
             title={name} 
             links={[
-                {'title': 'Studenți', 'nav_link': 'students'}, 
-                {'title': 'Coordonatori', 'nav_link': 'teachers'}, 
-                {'title': 'Progres', 'nav_link': 'reports'}
+                {'title': 'Studenți', 'nav_link': 'admin/students'},
+                {'title': 'Coordonatori', 'nav_link': 'admin/teachers'},
+                {'title': 'Progres', 'nav_link': 'admin/reports'}
                 ]}
         >
             <StudentTableViewComponent/>

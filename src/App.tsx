@@ -28,13 +28,15 @@ function App() {
                       path="student/new_coordinator_request/:id"
                       element={<PrivateRoute roles={['student']} component={StudentCoordinatorRequestPage} />}
                   />
-
                   <Route
                       path="coordinator"
                       element={<PrivateRoute roles={['coordinator']} component={CoordinatorMainPage} />}
                   />
                   <Route
-                    
+                      path="admin"
+                      element={<PrivateRoute roles={['admin']} component={AdminManageStudentsPage} />}
+                  />
+                  <Route
                       path="admin/students"
                       element={<PrivateRoute roles={['admin']} component={AdminManageStudentsPage} />}
                   />
