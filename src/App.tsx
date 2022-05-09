@@ -11,6 +11,7 @@ import StudentCoordinatorRequestPage from "./students/StudentCoordinatorRequestP
 import AdminManageStudentsPage from './admins/AdminManageStudentsPage';
 import AdminManageTeachersPage from './admins/AdminManageTeachersPage';
 import AdminReportsPage from './admins/AdminReportsPage';
+import CoordinatorStudentProfilePage from './coordinators/CoordinatorStudentProfilePage';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                       element={<PrivateRoute roles={['coordinator']} component={CoordinatorMainPage} />}
                   />
                   <Route
+                    
                       path="admin/students"
                       element={<PrivateRoute roles={['admin']} component={AdminManageStudentsPage} />}
                   />
@@ -43,7 +45,12 @@ function App() {
                   <Route
                       path="admin/reports"
                       element={<PrivateRoute roles={['admin']} component={AdminReportsPage} />}
+                   />
+                  <Route
+                      path="coordinator/student/:id"
+                      element={<PrivateRoute roles={['coordinator']} component={CoordinatorStudentProfilePage} />}
                   />
+
                   <Route path="login" element={<Login/>} />
                   
               </Routes>

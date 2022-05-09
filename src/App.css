@@ -45,7 +45,9 @@
 .profile-image{
   margin: auto 10px;
 }
-
+.profile{
+  max-width: 60%;
+}
 .request-btn{
   flex: 1;
   margin: auto;
@@ -70,6 +72,15 @@
 }
 .filters-form{
   text-align: left;
+}
+
+.assignment-container.card{
+  background: #0d6efd59;
+}
+.assignment-container.card .card-text{
+  background: white;
+  border: 1px solid white;
+  border-radius: 0.25rem;
 }
 
 @keyframes App-logo-spin {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseUrl = 'localhost:8080';
-const authUrl = `http://${baseUrl}/api/auth`;
+const authUrl = `http://${baseUrl}/login`;
 const config = {
     headers: {
         'Content-Type': 'application/json'
@@ -9,11 +9,11 @@ const config = {
 };
 
 export interface AuthProps {
-    token: string;
     role: string;
     name: string;
+    token: string;
 }
 
-export const login: (email?: string, password?: string) => Promise<AuthProps> = (email, password) => {
-    return axios.post(`${authUrl}/login`, { email, password }, config);
+export const login: (email?: string, password?: string) => Promise<AuthProps> = async (email, password) => {
+    return await axios.post(`${authUrl}`, { email, password }, config).then(res => res.data);
 }
