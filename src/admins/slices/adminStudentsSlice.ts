@@ -16,7 +16,8 @@ interface adminStudentsSliceState {
     students: Array<Student>,
     studentsInitial: Array<Student>,
     searchedText: string,
-    fields: any
+    fields: any,
+    studentEdited: Student
 }
 
 const initialState: adminStudentsSliceState = {
@@ -69,6 +70,15 @@ const initialState: adminStudentsSliceState = {
         specialization: 'Specializare',
         email: 'E-mail',
         academic_code: 'Cod academic'
+    },
+    studentEdited:{
+        first_name: '', 
+        last_name: '', 
+        academic_code: '', 
+        specialization: '', 
+        graduation: '',
+        form_of_education: '',
+        email: ''
     }
 }
 
@@ -90,6 +100,17 @@ const adminStudentsSlice = createSlice({
         addStudent: (state, action: PayloadAction<Student>) => {
             state.students.push(action.payload);
             state.studentsInitial.push(action.payload);
+        },
+        updateStudent: (state, action: PayloadAction<number>) => {
+            console.log('update');
+            state.students[action.payload] = state.studentEdited;
+            console.log('trec');
+            state.studentsInitial[action.payload] = state.studentEdited;
+            console.log(state.students[action.payload]);
+        },
+        setStudentEdit: (state, action: PayloadAction<Student>) => {
+            console.log('edit');
+            state.studentEdited = action.payload;
         }
     },
 });
@@ -97,7 +118,7 @@ const adminStudentsSlice = createSlice({
 export default adminStudentsSlice.reducer
 
 // Actions
-export const { filterChanged, filterChanged2, addStudent } = adminStudentsSlice.actions
+export const { filterChanged, filterChanged2, addStudent, setStudentEdit, updateStudent } = adminStudentsSlice.actions
 
 export const filterChange = (filter : string, students: Array<Student>) => (dispatch: AppDispatch) => {
    dispatch(filterChanged(filter));
@@ -106,4 +127,9 @@ export const filterChange = (filter : string, students: Array<Student>) => (disp
 
 export const addStudentDispatch = (student: Student) => (dispatch: AppDispatch) => {
     dispatch(addStudent(student));
+ }
+
+ export const updateStudentDispatch = (student: Student, index: number) => (dispatch: AppDispatch) => {
+    dispatch(setStudentEdit(student));
+    // dispatch(updateStudent(index));
  }
