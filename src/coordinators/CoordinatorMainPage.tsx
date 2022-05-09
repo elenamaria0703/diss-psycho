@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import {Container} from "react-bootstrap";
+import { AuthContext } from "../shared/auth/AuthProvider";
+import Layout from "../shared/Layout";
+import CoordinatorListViewComponent from "./components/CoordinatorListViewComponent";
 
 const CoordinatorMainPage: React.FC = () =>{
-
+    const {name} = useContext(AuthContext)
     return (
-        <Container className={"mt-2 mb-5"}>
-            Coordinator Main Page
-        </Container>
+        <Layout title={name}>
+            <CoordinatorListViewComponent/>
+        </Layout>
     )
 }
 export default CoordinatorMainPage
