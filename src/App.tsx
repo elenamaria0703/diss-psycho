@@ -7,8 +7,10 @@ import StudentMainPage from "./students/StudentMainPage";
 import 'bootstrap/dist/css/bootstrap.css';
 import {AuthProvider} from "./shared/auth/AuthProvider";
 import CoordinatorMainPage from "./coordinators/CoordinatorMainPage";
-import AdminMainPage from "./admins/AdminMainPage";
 import StudentCoordinatorRequestPage from "./students/StudentCoordinatorRequestPage";
+import AdminManageStudentsPage from './admins/AdminManageStudentsPage';
+import AdminManageTeachersPage from './admins/AdminManageTeachersPage';
+import AdminReportsPage from './admins/AdminReportsPage';
 import CoordinatorStudentProfilePage from './coordinators/CoordinatorStudentProfilePage';
 
 function App() {
@@ -32,15 +34,25 @@ function App() {
                       element={<PrivateRoute roles={['coordinator']} component={CoordinatorMainPage} />}
                   />
                   <Route
+                    
+                      path="admin/students"
+                      element={<PrivateRoute roles={['admin']} component={AdminManageStudentsPage} />}
+                  />
+                  <Route
+                      path="admin/teachers"
+                      element={<PrivateRoute roles={['admin']} component={AdminManageTeachersPage} />}
+                  />
+                  <Route
+                      path="admin/reports"
+                      element={<PrivateRoute roles={['admin']} component={AdminReportsPage} />}
+                   />
+                  <Route
                       path="coordinator/student/:id"
                       element={<PrivateRoute roles={['coordinator']} component={CoordinatorStudentProfilePage} />}
                   />
 
-                  <Route
-                      path="admin"
-                      element={<PrivateRoute roles={['admin']} component={AdminMainPage} />}
-                  />
                   <Route path="login" element={<Login/>} />
+                  
               </Routes>
           </Router>
      </AuthProvider>

@@ -2,14 +2,19 @@ import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
 
 import studentsSlice from './students/slices/studentsSideCoordinatorSlice'
+import adminStudentsSlice from './admins/slices/adminStudentsSlice'
+import adminTeachersSlice from './admins/slices/adminTeachersSlice'
+import adminReportsSlice from './admins/slices/adminReportsSlice'
 import studentAssignmentsSlice from './students/slices/studentSideAssignmentsSlice'
 import coordinatorsSlice from './coordinators/slices/coordinatorsSideStudentSlice'
 
 const reducer = combineReducers({
     studentsSlice,
+    adminStudentsSlice,
+    adminTeachersSlice,
+    adminReportsSlice,
     studentAssignmentsSlice,
     coordinatorsSlice
-})
 
 const store = configureStore({
     reducer,
