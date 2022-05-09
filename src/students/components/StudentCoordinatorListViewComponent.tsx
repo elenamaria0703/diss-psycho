@@ -3,13 +3,18 @@ import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import StudentCoordinatorListItemComponent from "./StudentCoordinatorListItemComponent";
 import StudentCoordinatorListFiltersComponent from "./StudentCoordinatorListFiltersComponent";
-import {Coordinator} from "../slices/studentsSideCoordinatorSlice";
+import {Coordinator, fetchCoordinators} from "../slices/studentsSideCoordinatorSlice";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
 const StudentCoordinatorListViewComponent: React.FC =(hasBackButton)=> {
     const {coordinators, selectedDomain, requests} = useAppSelector((state) => state.studentsSlice)
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(fetchCoordinators())
+    }, [dispatch])
 
     const columnsPerRow = 2
 

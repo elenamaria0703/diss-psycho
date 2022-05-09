@@ -18,7 +18,7 @@ const StudentCoordinatorRequestFormComponent: React.FC =()=> {
         event.preventDefault()
         if (form.checkValidity()){
             dispatch(addCoordRequest({id: '', coord_id: id || '', description: motivation, subject: subject}))
-            navigate('/student')
+            navigate(-1)
         }
 
         setValidated(true)
