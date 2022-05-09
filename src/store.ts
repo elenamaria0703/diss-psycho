@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
 
 import studentsSlice from './students/slices/studentsSideCoordinatorSlice'
+import studentAssignmentsSlice from './students/slices/studentSideAssignmentsSlice'
 import coordinatorsSlice from './coordinators/slices/coordinatorsSideStudentSlice'
 
 const reducer = combineReducers({
     studentsSlice,
+    studentAssignmentsSlice,
     coordinatorsSlice
 })
 
