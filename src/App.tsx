@@ -9,6 +9,7 @@ import {AuthProvider} from "./shared/auth/AuthProvider";
 import CoordinatorMainPage from "./coordinators/CoordinatorMainPage";
 import AdminMainPage from "./admins/AdminMainPage";
 import StudentCoordinatorRequestPage from "./students/StudentCoordinatorRequestPage";
+import CoordinatorStudentProfilePage from './coordinators/CoordinatorStudentProfilePage';
 
 function App() {
   return (
@@ -30,6 +31,11 @@ function App() {
                       path="coordinator"
                       element={<PrivateRoute roles={['coordinator']} component={CoordinatorMainPage} />}
                   />
+                  <Route
+                      path="coordinator/student/:id"
+                      element={<PrivateRoute roles={['coordinator']} component={CoordinatorStudentProfilePage} />}
+                  />
+
                   <Route
                       path="admin"
                       element={<PrivateRoute roles={['admin']} component={AdminMainPage} />}
