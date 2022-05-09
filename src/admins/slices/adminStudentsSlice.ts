@@ -3,13 +3,13 @@ import {AppDispatch, RootState} from "../../store";
 import {useAppSelector} from "../../hooks";
 
 export interface Student {
-    first_name: string,
-    last_name: string,
-    academic_code: string,
-    specialization: string,
-    graduation: string,
-    form_of_education: string,
-    email: string
+    first_name?: string,
+    last_name?: string,
+    academic_code?: string,
+    specialization?: string,
+    graduation?: string,
+    form_of_education?: string,
+    email?: string
 };
 
 interface adminStudentsSliceState {
@@ -81,12 +81,15 @@ const adminStudentsSlice = createSlice({
         },
         filterChanged2: (state, action: PayloadAction<Array<Student>>) => {
             if(state.searchedText === '') {
-                state.students = initialState.students;
-                state.studentsInitial = initialState.studentsInitial;
+                state.students = state.studentsInitial;
             }
             else {
                 state.students = action.payload;
             }
+        },
+        addStudent: (state, action: PayloadAction<Student>) => {
+            state.students.push(action.payload);
+            state.studentsInitial.push(action.payload);
         }
     },
 });
@@ -94,9 +97,13 @@ const adminStudentsSlice = createSlice({
 export default adminStudentsSlice.reducer
 
 // Actions
-export const { filterChanged, filterChanged2 } = adminStudentsSlice.actions
+export const { filterChanged, filterChanged2, addStudent } = adminStudentsSlice.actions
 
 export const filterChange = (filter : string, students: Array<Student>) => (dispatch: AppDispatch) => {
    dispatch(filterChanged(filter));
    dispatch(filterChanged2(students));
 }
+
+export const addStudentDispatch = (student: Student) => (dispatch: AppDispatch) => {
+    dispatch(addStudent(student));
+ }

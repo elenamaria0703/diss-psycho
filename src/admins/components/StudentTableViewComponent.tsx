@@ -9,7 +9,7 @@ const StudentTableViewComponent: React.FC = () =>{
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
         if(filter !== undefined || filter !== ''){
-            dispatch(filterChange(filter, studentsInitial.filter((s, i) => s.last_name.includes(filter) || s.first_name.includes(filter))))
+            dispatch(filterChange(filter, studentsInitial.filter((s, i) => s.last_name?.includes(filter) || s.first_name?.includes(filter))))
         }
         else{
             dispatch(filterChange('', []));

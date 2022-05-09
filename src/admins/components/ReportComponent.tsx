@@ -8,6 +8,7 @@ export interface ReportProps {
 
 const ReportComponent: React.FC<ReportProps> = ({type, description}) => {
     const handleSubmit = (event: FormEvent) => {
+        alert('click');
     }
     
     return (

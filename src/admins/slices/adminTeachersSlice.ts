@@ -63,12 +63,15 @@ const adminTeachersSlice = createSlice({
         },
         filterChanged2: (state, action: PayloadAction<Array<Teacher>>) => {
             if(state.searchedText === '') {
-                state.teachers = initialState.teachers;
-                state.teachersInitial = initialState.teachersInitial;
+                state.teachers = state.teachersInitial;
             }
             else {
                 state.teachers = action.payload;
             }
+        },
+        addTeacher: (state, action: PayloadAction<Teacher>) => {
+            state.teachers.push(action.payload);
+            state.teachersInitial.push(action.payload);
         }
     },
 });
@@ -76,9 +79,13 @@ const adminTeachersSlice = createSlice({
 export default adminTeachersSlice.reducer
 
 // Actions
-export const { filterChanged, filterChanged2 } = adminTeachersSlice.actions
+export const { filterChanged, filterChanged2, addTeacher } = adminTeachersSlice.actions
 
 export const filterChange = (filter : string, teachers : Array<Teacher>) => (dispatch: AppDispatch) => {
    dispatch(filterChanged(filter));
    dispatch(filterChanged2(teachers));
 }
+
+export const addTeacherDispatch = (teacher: Teacher) => (dispatch: AppDispatch) => {
+    dispatch(addTeacher(teacher));
+ }
