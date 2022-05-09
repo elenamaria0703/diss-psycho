@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, Row, Table, Modal } from "react-bootstrap";
 import {PencilSquare, Archive} from "react-bootstrap-icons";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { addStudentDispatch, Student } from "../slices/adminStudentsSlice";
+import { addStudentDispatch, Student, updateStudentDispatch } from "../slices/adminStudentsSlice";
 
 const StudentTableComponent: React.FC = () => {
     const dispatch = useAppDispatch();
+    var selectedEditIndex = -1;
 
     var studentToAdd: Student = {
         last_name: '',
@@ -37,6 +38,7 @@ const StudentTableComponent: React.FC = () => {
     };
 
     const clearStudentToEdit = () => {
+        selectedEditIndex = -1;
         studentToEdit.last_name = '';
         studentToEdit.first_name = '';
         studentToEdit.form_of_education = '';
@@ -69,13 +71,14 @@ const StudentTableComponent: React.FC = () => {
     const handleCloseEdit = () => setShowEdit(false);
     const handleShowEdit = () => setShowEdit(true);
     const handleUpdate = () => {
-        console.log(studentToEdit);
+        // dispatch(updateStudentDispatch(studentToEdit, selectedEditIndex));
         handleCloseEdit();
         clearStudentToEdit();
     };
 
     const handleEditStudent = (index: number) => {
         if(students.at(index) !== undefined){
+            selectedEditIndex = index;
             studentToEdit.last_name = students.at(index)?.last_name;
             studentToEdit.first_name = students.at(index)?.first_name;
             studentToEdit.form_of_education = students.at(index)?.form_of_education;
