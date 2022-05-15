@@ -16,20 +16,25 @@ export interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, title, links}) => {
     const navigate = useNavigate()
-
+    const storageClear = () => {
+        Storage.remove({key: 'token'});
+        Storage.remove({key: 'id'});
+        Storage.remove({key: 'role'});
+        Storage.remove({key: 'name'});
+    }
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" className={'shadow-sm'}>
-                <Container>
-                    <Navbar.Brand href={'/'}><Image height={40} src={'/ubb_logo.png'}/></Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse>
-                        <Nav className="me-auto">
-                            {links && links.map((link) => <Nav.Link onClick={() => navigate(`/${link.nav_link}`)} href={'#'}>{link.title}</Nav.Link>)}
+            <Navbar key={'navbar'}collapseOnSelect expand="lg" className={'shadow-sm'}>
+                <Container key={'container'}>
+                    <Navbar.Brand key={'navbar_brand'} href={'/'}><Image height={40} src={'/ubb_logo.png'}/></Navbar.Brand>
+                    <Navbar.Toggle key={'navbar_toogle'} aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse key={'navbar_collapse'}>
+                        <Nav key={'nav1'} className="me-auto">
+                            {links && links.map((link,i) => <Nav.Link key={`nav1_${i}`} onClick={() => navigate(`/${link.nav_link}`)} href={'#'}>{link.title}</Nav.Link>)}
                         </Nav>
-                        <Nav>
-                            <Navbar.Text className={'d-md-none d-lg-block'}>{title}</Navbar.Text>
-                            <Nav.Link><BoxArrowRight onClick={() => {Storage.clear(); window.location.reload();}}/></Nav.Link>
+                        <Nav key={'nav2'}>
+                            <Navbar.Text key={'nav2_text'} className={'d-md-none d-lg-block'}>{title}</Navbar.Text>
+                            <Nav.Link key={'nav2_link'}><BoxArrowRight key={'bar'} onClick={() => {storageClear(); window.location.reload();}}/></Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

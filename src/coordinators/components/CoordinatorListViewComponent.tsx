@@ -1,16 +1,21 @@
-import React from "react"
+import React, {useEffect} from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import { useAppSelector } from "../../hooks"
-import { Student } from "../slices/coordinatorsSideStudentSlice"
+import {useAppDispatch, useAppSelector} from "../../hooks"
 import CoordinatorListItemComponent from "./CoordinatorListItemComponent"
 import CoordinatorStudentsListSearchComponent from "./CoordinatorStudentsListSearchComponent"
+import {Student} from "../../shared/Entities";
+import {fetchStudentDispatch} from "../slices/coordinatorsSideStudentSlice";
 
 const CoordinatorListViewComponent: React.FC =()=> {
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(fetchStudentDispatch());
+    }, [dispatch])
   const {students, searchedStudent} = useAppSelector((state) => state.coordinatorsSlice)
   const columnsPerRow = 2
   
   const searchStudent = (students: Array<Student>, searchedStudent: string ) => {
-    return students.filter((student) => student.name.includes(searchedStudent))
+    return students.filter((student) => student.last_name?.includes(searchedStudent) || student.first_name?.includes(searchedStudent))
 }
 
   const getColumnsForRow =()=>{
@@ -18,7 +23,7 @@ const CoordinatorListViewComponent: React.FC =()=> {
     return studentsToDisplay.map((student, i) => {
          return (
             <Col key={i}>
-                <CoordinatorListItemComponent id={student.id} name={student.name} email={student.email}/>
+                <CoordinatorListItemComponent id={student.id} first_name={student.first_name} last_name={student.last_name} email={student.email}/>
             </Col>
          )
      })

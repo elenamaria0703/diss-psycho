@@ -9,6 +9,7 @@ const config = {
 };
 
 export interface AuthProps {
+    id: number,
     role: string;
     name: string;
     token: string;

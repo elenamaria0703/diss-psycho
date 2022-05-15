@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-
-import {Container} from "react-bootstrap";
 import { AuthContext } from "../shared/auth/AuthProvider";
 import Layout from "../shared/Layout";
 import StudentTableViewComponent from "./components/StudentTableViewComponent";

@@ -4,7 +4,6 @@ import {useAppDispatch, useAppSelector} from "../../hooks";
 import StudentCoordinatorListItemComponent from "./StudentCoordinatorListItemComponent";
 import StudentCoordinatorListFiltersComponent from "./StudentCoordinatorListFiltersComponent";
 import {Coordinator, fetchCoordinators} from "../slices/studentsSideCoordinatorSlice";
-import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
 const StudentCoordinatorListViewComponent: React.FC =(hasBackButton)=> {

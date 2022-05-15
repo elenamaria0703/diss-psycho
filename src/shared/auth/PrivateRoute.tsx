@@ -17,5 +17,4 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: RouteComp
      }
 
      return <Navigate to="/" />
-    // return <RouteComponent />
 }

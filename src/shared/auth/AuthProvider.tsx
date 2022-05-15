@@ -16,6 +16,7 @@ export interface AuthState {
     token: string;
     role: string;
     name: string;
+    id: number;
 }
 
 const initialState: AuthState = {
@@ -24,7 +25,8 @@ const initialState: AuthState = {
     pendingAuthentication: false,
     token: '',
     role: '',
-    name: ''
+    name: '',
+    id: -1
 };
 
 export const AuthContext = React.createContext<AuthState>(initialState);
@@ -35,10 +37,10 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [state, setState] = useState<AuthState>(initialState);
-    const { isAuthenticated, isAuthenticating, pendingAuthentication, token, role, name } = state;
+    const { isAuthenticated, isAuthenticating, pendingAuthentication, token, role, name, id } = state;
     const login = useCallback<LoginFn>(loginCallback, []);
     useEffect(authenticationEffect, [pendingAuthentication]);
-    const value = { isAuthenticated, login, isAuthenticating, token, role, name };
+    const value = { isAuthenticated, login, isAuthenticating, token, role, name, id };
 
     return (
         <AuthContext.Provider value={value}>
@@ -67,12 +69,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 const retToken = await Storage.get({key: "token"});
                 const retRole = await Storage.get({key: "role"});
                 const retName = await Storage.get({key: "name"});
+                const retId = await Storage.get({key: "id"});
+                var retIdNumber: number = -1;
+                if(retId.value != null) retIdNumber = Number(retId.value);
                 if(retToken.value != null  && retRole.value != null && retName.value != null){
                     setState({
                         ...state,
                         token: retToken.value,
                         name: retName.value,
                         role: retRole.value,
+                        id: retIdNumber,
                         isAuthenticated: true,
                     });
                 }
@@ -84,7 +90,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     isAuthenticating: true,
                 });
                  const { email, password } = state;
-                 const { role, name, token } = await loginApi(email, password);
+                 const { id, role, name, token } = await loginApi(email, password);
+                 if(role === undefined || role === null) {
+                     canceled = true;
+                     setState({
+                         ...state,
+                         pendingAuthentication: false,
+                         isAuthenticating: false,
+                     });
+                 }
                 // const { token, role, name } = await loginApi(email, password);
                 if (canceled) {
                     return;
@@ -99,6 +113,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     isAuthenticated: true,
                     isAuthenticating: false,
                 });
+                await Storage.set({key: "id", value: id.toString()})
                 await Storage.set({key: "token", value: token})
                 await Storage.set({key: "name", value: name})
                 await Storage.set({key: "role", value: role})

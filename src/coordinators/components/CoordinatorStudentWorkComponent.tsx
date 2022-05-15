@@ -1,6 +1,6 @@
 import React, { FormEvent } from "react";
 import { Button, Card, Form } from "react-bootstrap";
-import { StudentWork } from "../slices/coordinatorsSideStudentSlice";
+import {StudentWork} from "../../shared/Entities";
 
 const CoordinatorStudentWorkComponent: React.FC<StudentWork> =({id, description, feedback, submission_date })=> {
   const handleSubmit = (event: FormEvent) => {
@@ -22,7 +22,8 @@ const CoordinatorStudentWorkComponent: React.FC<StudentWork> =({id, description,
           </Form>
         }
       </Card.Body>
-      <Card.Footer className="text-muted">Incarcat la data: {submission_date.toDateString()}</Card.Footer>
+        <Card.Footer className="text-muted">Incarcat la data: {submission_date}</Card.Footer>
+      {/*<Card.Footer className="text-muted">Incarcat la data: {submission_date.toDateString()}</Card.Footer>*/}
     </Card>
   )
 }
