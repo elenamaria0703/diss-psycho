@@ -8,7 +8,7 @@ const StudentAssignmentsListItemComponent: React.FC<Assignment> =({ title, descr
 
     return (
         <Card className={'mb-2 assignment-container flex-grow-1'}>
-            <Card.Title className={'mt-2'}>{title}</Card.Title>
+            <Card.Header className={'mt-2'}>{title}</Card.Header>
             <Card.Body className={'d-flex flex-column'}>
                 <Card.Text>{description}</Card.Text>
                 {feedback &&
@@ -17,12 +17,14 @@ const StudentAssignmentsListItemComponent: React.FC<Assignment> =({ title, descr
                         {feedback && <p><p className={'text-muted'}>Observații:</p> {feedback}</p>}
                     </Card.Text>
                 }
-                {feedback ?
-                    <p className={'mt-auto p-2'}>Evaluat în data de {gradedAt}</p>
-                    :
-                    <p className={'mt-auto'}><Button variant={'light'}>Încarcă</Button></p>
-                }
             </Card.Body>
+            <Card.Footer>
+                {feedback ?
+                    <span className={'mt-auto p-2'}>Evaluat în data de {gradedAt}</span>
+                    :
+                    <span className={'mt-auto'}><Button>Încarcă</Button></span>
+                }
+            </Card.Footer>
         </Card>
     )
 }

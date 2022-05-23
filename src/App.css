@@ -74,9 +74,6 @@
   text-align: left;
 }
 
-.assignment-container.card{
-  background: #0d6efd59;
-}
 .assignment-container.card .card-text{
   background: white;
   border: 1px solid white;

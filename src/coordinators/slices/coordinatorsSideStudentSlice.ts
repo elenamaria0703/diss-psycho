@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {AppDispatch} from "../../store";
-import {Student} from "../../shared/Entities";
+import {Student, StudentWork} from "../../shared/Entities";
 import {getStudents, getRequestsStorage, getAllStudents, removeAcceptedRequest} from "../TeacherApi";
 import { CoordRequest } from '../../students/slices/studentsSideCoordinatorSlice';
 import { updateStudent } from '../../admins/AdminsApi';
@@ -21,6 +21,15 @@ import {wait} from "@testing-library/user-event/dist/utils";
 //     // submission_date: Date
 //     submission_date: string
 // }
+
+const studentAssignments: Array<StudentWork> = [
+    {id: "1", description: "Documentarea conceptelor teoretice din lucrarea de licență în baza de date/ surse științifice, academice ", feedback: "", submission_date: "12.04.2022"},
+    {id: "2", description: "Autonomie în identificarea și consultarea surselor științifice relevante pentru tema de licență ", feedback: "", submission_date: ""},
+    {id: "3", description: "Răspunde la solicitările coordonatorului, în termenele stabilite de acesta. (ex. Trimite text elaborat pentru manuscrisul tezei de licență atunci când i se solicită.) ", feedback: "", submission_date: ""},
+    {id: "4", description: "Integrează feedbackul coordonatorului, în termenele stabilite de acesta. ", feedback: "", submission_date: ""},
+    {id: "5", description: "Participă la întâlnirile stabilite de coordonator, atunci când este cazul.  ", feedback: "", submission_date: ""}
+]
+
 interface coordinatorsSliceState {
     students: Array<Student>,
     allStudents: Array<Student>,
@@ -43,7 +52,9 @@ const coordinatorsSideStudentSlice = createSlice({
             state.searchedStudent = action.payload
         },
         fetchStudents: (state, action: PayloadAction<Array<Student>>) => {
-            state.students = action.payload;
+            const students = action.payload
+            students.map(student => student.work = studentAssignments)
+            state.students = students;
         },
         fetchRequests: (state, action: PayloadAction<Array<CoordRequest>>) => {
             state.requests = action.payload;
