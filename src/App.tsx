@@ -25,7 +25,7 @@ function App() {
                     element={<PrivateRoute roles={['student']} component={StudentMainPage} />}
                   />
                   <Route
-                      path="student/new_coordinator_request/:id"
+                      path="student/new_coordinator_request/:coord_id"
                       element={<PrivateRoute roles={['student']} component={StudentCoordinatorRequestPage} />}
                   />
                   <Route

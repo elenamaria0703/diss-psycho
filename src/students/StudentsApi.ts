@@ -2,6 +2,7 @@ import axios from 'axios';
 import {Storage} from "@capacitor/storage";
 import {sendRequest} from "../shared/RestApi";
 import {Student, Teacher} from "../shared/Entities";
+import { CoordRequest } from './slices/studentsSideCoordinatorSlice';
 
 const baseUrl = 'http://localhost:8080/student';
 
@@ -45,10 +46,27 @@ const getTeachersStorage = async() => {
     return [];
 }
 
+const getRequestsStorage = async() =>{
+    const requestsValue = await Storage.get({key: "requests"});
+    if (requestsValue !== undefined && typeof requestsValue.value === "string") {
+        const requests: Array<CoordRequest> = (JSON.parse(requestsValue.value) as Array<CoordRequest>);
+        return requests;
+    }
+    return [];
+}
+
 export const getCoordinators: () => Promise<any> = async () => {
     const teachers = await getTeachersStorage();
     return new Promise<Array<Teacher>>((resolve, reject) => resolve(teachers));
     // return await sendRequest('get', `${baseUrl}/teachers`, null).then(res => res.data);
     // await authorizeRequest();
     // return await axios.get(`${baseUrl}/teachers`,  config).then(res => res.data);
+}
+
+export const addRequestStorage: (request: CoordRequest) => Promise<CoordRequest> | undefined = async (request) => {
+    const requests = await getRequestsStorage();
+    requests.push(request);
+    await Storage.set({key: "requests", value: JSON.stringify(requests)});
+    return new Promise<CoordRequest>((resolve, reject) => resolve(request));
+    // return await sendRequest('post', `${baseUrl}/teacher/new`, {teacher}).then(res => res.data);
 }

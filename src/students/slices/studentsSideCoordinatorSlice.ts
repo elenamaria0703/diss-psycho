@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {AppDispatch} from "../../store";
-import {getCoordinatorId, getCoordinators} from "../StudentsApi";
+import {addRequestStorage, getCoordinatorId, getCoordinators} from "../StudentsApi";
 import {Teacher} from "../../shared/Entities";
 
 // Slice
@@ -30,7 +30,8 @@ export interface CoordRequest {
     id: string,
     subject: string,
     description: string,
-    coord_id: string
+    coord_id: string,
+    stud_id: string
 }
 interface studentsSliceState {
     coordinators: Array<Coordinator>,
@@ -55,13 +56,12 @@ const studentsSideCoordinatorSlice = createSlice({
         },
         addRequest: (state, action: PayloadAction<CoordRequest>) => {
             let request = action.payload
-            request.id = `${state.requests.length + 1}`
             state.requests.push(request)
         },
         fetchedCoordinators: (state, action: PayloadAction<Array<Coordinator>>) =>{
             state.coordinators = action.payload
         },
-        hasCoordinator: (state) => {
+        setCoordinator: (state) => {
             state.hasCoordinator = true;
         }
     },
@@ -70,14 +70,17 @@ const studentsSideCoordinatorSlice = createSlice({
 export default studentsSideCoordinatorSlice.reducer
 
 // Actions
-export const { filterChanged, addRequest, fetchedCoordinators, hasCoordinator } = studentsSideCoordinatorSlice.actions
+export const { filterChanged, addRequest, fetchedCoordinators, setCoordinator } = studentsSideCoordinatorSlice.actions
 
 export const filterChange = (filter : string) => (dispatch: AppDispatch) => {
    dispatch(filterChanged(filter));
 }
 
-export const addCoordRequest = (request: CoordRequest) => (dispatch: AppDispatch) => {
-    dispatch(addRequest(request));
+export const addCoordRequest = (request: CoordRequest) => async (dispatch: AppDispatch) => {
+    const requestAdd = await addRequestStorage(request);
+    if(requestAdd !== undefined){
+        dispatch(addRequest(request));
+    }
 }
 
 export const fetchCoordinators = () => async (dispatch: AppDispatch) => {
@@ -100,5 +103,5 @@ export const fetchCoordinators = () => async (dispatch: AppDispatch) => {
 
 export const getCoordinatorIdDispatch = () => async (dispatch: AppDispatch) => {
     const coordinator_id = await getCoordinatorId();
-    if(coordinator_id !== undefined) dispatch(hasCoordinator());
+    if(coordinator_id !== undefined && coordinator_id !== -1) dispatch(setCoordinator());
 }

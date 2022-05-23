@@ -1,13 +1,16 @@
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useContext, useState} from "react";
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import {useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks";
+import { AuthContext } from "../../shared/auth/AuthProvider";
 import {addCoordRequest} from "../slices/studentsSideCoordinatorSlice";
 
 const StudentCoordinatorRequestFormComponent: React.FC =()=> {
     const navigate = useNavigate()
-    const {id} = useParams()
-    const name = useAppSelector(state => state.studentsSlice.coordinators.find((coordinator) => coordinator.id == id)?.name)
+    const {coord_id} = useParams()
+    const {id} = useContext(AuthContext)
+    const name = useAppSelector(state => state.studentsSlice.coordinators.find((coordinator) => coordinator.id == coord_id)?.name)
+    const new_req_id = useAppSelector(state => state.studentsSlice.requests?.length) + 1
     const [subject, setSubject] = useState('')
     const [motivation, setMotivation] = useState('')
     const [validated, setValidated] = useState(false)
@@ -17,7 +20,7 @@ const StudentCoordinatorRequestFormComponent: React.FC =()=> {
         const form = event.currentTarget as HTMLFormElement
         event.preventDefault()
         if (form.checkValidity()){
-            dispatch(addCoordRequest({id: '', coord_id: id || '', description: motivation, subject: subject}))
+            dispatch(addCoordRequest({id: new_req_id.toString(), coord_id: coord_id || '', description: motivation, subject: subject, stud_id: id.toString() || ''}))
             navigate(-1)
         }
 
