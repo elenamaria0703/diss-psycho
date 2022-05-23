@@ -4,6 +4,7 @@ import {Student} from "../../shared/Entities";
 import {getStudents, getRequestsStorage, getAllStudents, removeAcceptedRequest} from "../TeacherApi";
 import { CoordRequest } from '../../students/slices/studentsSideCoordinatorSlice';
 import { updateStudent } from '../../admins/AdminsApi';
+import {wait} from "@testing-library/user-event/dist/utils";
 
 // Slice
 // export interface Student {
@@ -86,7 +87,9 @@ export const acceptRequestDispatch = (req: CoordRequest) => async (dispatch: App
         req_stud.coordinator_id = parseInt(req.coord_id)
         const studentUpdate = await updateStudent(req_stud);
         const new_requests = await removeAcceptedRequest(req.id);
-        if (new_requests !== undefined) dispatch(fetchRequests(new_requests));
+        dispatch(fetchRequests(new_requests || []));
+
+        dispatch(fetchStudentDispatch())
     }
         
 

@@ -40,7 +40,12 @@ export const getRequestsStorage = async() =>{
 export const removeAcceptedRequest = async (id: string) =>{
     const requests = await getRequestsStorage();
     const idx = requests.findIndex(req => req.id === id)
-    const new_requests = requests.slice(0,idx).concat(requests.slice(idx+1, requests.length))
+    const request = requests.at(idx)
+    let new_requests = requests.slice(0,idx).concat(requests.slice(idx+1, requests.length))
+    if (request !== undefined)
+        new_requests = new_requests.filter(req => req.stud_id !== request.stud_id)
     await Storage.set({key: "requests", value: JSON.stringify(new_requests)});
-    return new_requests
+
+    const coord_id = await Storage.get({key: "id"})
+    return new_requests.filter( req => req.coord_id === coord_id.value)
 }
